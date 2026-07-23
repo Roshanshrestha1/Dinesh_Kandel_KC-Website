@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Stats from "@/components/Stats";
@@ -13,29 +10,6 @@ import Marquee from "@/components/Marquee";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
-  const revealObserverRef = useRef<IntersectionObserver | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
-    revealObserverRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            revealObserverRef.current?.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    document.querySelectorAll(".reveal").forEach((el) => {
-      revealObserverRef.current?.observe(el);
-    });
-    return () => revealObserverRef.current?.disconnect();
-  }, []);
-
   return (
     <main className="relative">
       <Navbar />

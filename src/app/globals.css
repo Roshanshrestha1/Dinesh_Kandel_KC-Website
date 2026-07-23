@@ -409,8 +409,8 @@ a:focus-visible:not(.leaf):not([class*="btn-"]) {
 }
 
 /* ─── Scroll-reveal ─── */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal { opacity: 1; transform: none; }
+.reveal.is-visible { opacity: 1; transform: none; }
 
 /* ─── Container ─── */
 .container-x { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
