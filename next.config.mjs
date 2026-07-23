@@ -6,7 +6,8 @@ const nextConfig = {
   assetPrefix: `/${repo}/`,
   reactStrictMode: true,
   images: {
-    unoptimized: true,
+    loader: "custom",
+    loaderFile: "./src/lib/img-loader.ts",
   },
 };
 
