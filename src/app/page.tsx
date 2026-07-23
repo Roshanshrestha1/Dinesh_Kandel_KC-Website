@@ -18,6 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
     revealObserverRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

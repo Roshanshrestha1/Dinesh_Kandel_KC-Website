@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Color = "cinnabar" | "marigold" | "lapis" | "bronze";
 
@@ -55,30 +55,17 @@ const dot: Record<Color, string> = {
 
 function Counter({ stat }: { stat: Stat }) {
   const [n, setN] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          const start = performance.now();
-          const dur = 1600;
-          const tick = (now: number) => {
-            const t = Math.min(1, (now - start) / dur);
-            const ease = 1 - Math.pow(1 - t, 3);
-            setN(Math.round(stat.value * ease));
-            if (t < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    const start = performance.now();
+    const dur = 1600;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      const ease = 1 - Math.pow(1 - t, 3);
+      setN(Math.round(stat.value * ease));
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }, [stat.value]);
 
   const display = stat.isK
@@ -89,7 +76,6 @@ function Counter({ stat }: { stat: Stat }) {
 
   return (
     <div
-      ref={ref}
       className="reveal relative overflow-hidden rounded-xl border border-bronze/25 bg-parchment-grain px-5 py-6 md:px-7 md:py-8 text-ink shadow-leaf transition hover:border-cinnabar/55 hover:shadow-leaf-lift"
     >
       <div className="flex items-center gap-2">
